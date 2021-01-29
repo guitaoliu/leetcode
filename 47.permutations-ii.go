@@ -1,23 +1,25 @@
 /*
- * @lc app=leetcode id=46 lang=golang
+ * @lc app=leetcode id=47 lang=golang
  *
- * [46] Permutations
+ * [47] Permutations II
  */
 
 // @lc code=start
-func permute(nums []int) [][]int {
+func permuteUnique(nums []int) [][]int {
 	res := make([][]int, 0)
-
+	sort.Ints(nums)
 	var backtrace func([]int, []bool, int)
 	backtrace = func(result []int, used []bool, idx int) {
 		if idx == len(nums) {
 			tmp := make([]int, len(result))
 			copy(tmp, result)
 			res = append(res, tmp)
-			return
 		} else {
 			for i := 0; i < len(nums); i++ {
 				if !used[i] {
+					if i > 0 && nums[i] == nums[i-1] && !used[i-1] {
+						continue
+					}
 					used[i] = true
 					result = append(result, nums[i])
 					backtrace(result, used, idx+1)
