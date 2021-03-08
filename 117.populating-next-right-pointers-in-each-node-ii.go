@@ -19,21 +19,26 @@ func connect(root *Node) *Node {
 	if root == nil {
 		return nil
 	}
-	stack := []*Node{root}
-	for len(stack) > 0 {
-		cur := stack
-		stack = nil
-		for i := 0; i < len(cur); i++ {
-			if i < len(cur)-1 {
-				cur[i].Next = cur[i+1]
+	start := root
+	for start != nil {
+		var next, last *Node
+		handle := func(node *Node) {
+			if node == nil {
+				return
 			}
-			if cur[i].Left != nil {
-				stack = append(stack, cur[i].Left)
+			if next == nil {
+				next = node
 			}
-			if cur[i].Right != nil {
-				stack = append(stack, cur[i].Right)
+			if last != nil {
+				last.Next = node
 			}
+			last = node
 		}
+		for p := start; p != nil; p = p.Next {
+			handle(p.Left)
+			handle(p.Right)
+		}
+		start = next
 	}
 	return root
 }
