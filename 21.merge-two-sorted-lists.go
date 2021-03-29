@@ -25,7 +25,6 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	l2.Next = mergeTwoLists(l1, l2.Next)
 	return l2
-
 }
 
 // @lc code=end

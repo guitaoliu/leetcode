@@ -33,7 +33,7 @@ func expand(s string, l int, r int) (int, int) {
 	return l + 1, r - 1
 }
 
-func longestPalindromePD(s string) string {
+func longestPalindromeDP(s string) string {
 	if len(s) == 0 {
 		return ""
 	}
