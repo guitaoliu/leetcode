@@ -6,32 +6,16 @@
 
 // @lc code=start
 func summaryRanges(nums []int) []string {
-	if len(nums) == 0 {
-		return nil
-	}
-	if len(nums) == 1 {
-		return []string{strconv.Itoa(nums[0])}
-	}
 	res := []string{}
-	start, cur := nums[0], nums[0]
-	for i := 1; i < len(nums); i++ {
-		if nums[i] != cur+1 {
-			s := strconv.Itoa(start)
-			if start != cur {
-				s += "-" + ">" + strconv.Itoa(cur)
-			}
-			res = append(res, s)
-			start, cur = nums[i], nums[i]
-		} else {
-			cur = nums[i]
+	for i := 0; i < len(nums); {
+		start := i
+		for i++; i < len(nums) && nums[i] == nums[i-1]+1; i++ {
 		}
-		if i == len(nums)-1 {
-			s := strconv.Itoa(start)
-			if start != cur {
-				s += "-" + ">" + strconv.Itoa(cur)
-			}
-			res = append(res, s)
+		s := strconv.Itoa(nums[start])
+		if start != i-1 {
+			s += "->" + strconv.Itoa(nums[i-1])
 		}
+		res = append(res, s)
 	}
 	return res
 }
