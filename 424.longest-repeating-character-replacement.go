@@ -10,7 +10,7 @@ func characterReplacement(s string, k int) int {
 	freq := make([]int, 26)
 	for right := 0; right < len(s); right++ {
 		freq[s[right]-'A']++
-		cnt := max(cnt, freq[s[right]-'A'])
+		cnt = max(cnt, freq[s[right]-'A'])
 		for right-left+1-cnt > k {
 			freq[s[left]-'A']--
 			left++
