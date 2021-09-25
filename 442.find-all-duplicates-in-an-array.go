@@ -10,7 +10,7 @@ func findDuplicates(nums []int) []int {
 	for i := 0; i < len(nums); i++ {
 		cur := abs(nums[i])
 		if nums[cur-1] < 0 {
-			res = append(res, -nums[cur-1])
+			res = append(res, cur)
 		} else {
 			nums[cur-1] *= -1
 		}
