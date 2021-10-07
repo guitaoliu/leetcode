@@ -7,14 +7,14 @@
 // @lc code=start
 func findSubstringInWraproundString(p string) int {
 	dp := make([]int, 26)
-	maxContinus := 0
+	maxContinuous := 0
 	for i := 0; i < len(p); i++ {
-		if i > 0 && isContinus(p[i-1], p[i]) {
-			maxContinus++
+		if i > 0 && isContinuous(p[i-1], p[i]) {
+			maxContinuous++
 		} else {
-			maxContinus = 1
+			maxContinuous = 1
 		}
-		dp[p[i]-'a'] = max(dp[p[i]-'a'], maxContinus)
+		dp[p[i]-'a'] = max(dp[p[i]-'a'], maxContinuous)
 	}
 	ans := 0
 	for i := 0; i < len(dp); i++ {
@@ -23,7 +23,7 @@ func findSubstringInWraproundString(p string) int {
 	return ans
 }
 
-func isContinus(a, b byte) bool {
+func isContinuous(a, b byte) bool {
 	if a == 'z' {
 		return b == 'a'
 	}
