@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode id=153 lang=golang
+ * @lc app=leetcode id=154 lang=golang
  *
- * [153] Find Minimum in Rotated Sorted Array
+ * [154] Find Minimum in Rotated Sorted Array II
  */
 
 // @lc code=start
@@ -12,11 +12,14 @@ func findMin(nums []int) int {
 			return nums[left]
 		}
 		mid := left + (right-left)>>1
-		if nums[mid] >= nums[left] {
+		if nums[mid] > nums[left] {
 			left = mid + 1
+		} else if nums[mid] == nums[left] {
+			left++
 		} else {
 			right = mid
 		}
+
 	}
 	return nums[left]
 }
