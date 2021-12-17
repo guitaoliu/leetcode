@@ -23,5 +23,26 @@ func max(a, b int) int {
 	return b
 }
 
+func integerBreakMath(n int) int {
+	res := 0
+	for i := 2; i <= n; i++ {
+		dividen := n / i
+		remain := n % i
+		tmp := 1
+		for j := 0; j < i; j++ {
+			if remain > 0 {
+				tmp *= dividen + 1
+			} else {
+				tmp *= dividen
+			}
+			remain--
+		}
+		if tmp > res {
+			res = tmp
+		}
+	}
+	return res
+}
+
 // @lc code=end
 
