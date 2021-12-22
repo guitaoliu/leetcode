@@ -9,7 +9,7 @@ func findUnsortedSubarrayTwoPointers(nums []int) int {
 	maxNum := math.MinInt64
 	minNum := math.MaxInt64
 	n := len(nums)
-	l, r := 0, n-1
+	l, r := n-1, 0
 	for i := 0; i < n; i++ {
 		if nums[i] < maxNum {
 			r = i
@@ -23,6 +23,9 @@ func findUnsortedSubarrayTwoPointers(nums []int) int {
 		if nums[n-i-1] < minNum {
 			minNum = nums[n-i-1]
 		}
+	}
+	if l == n-1 && r == 0 {
+		return 0
 	}
 	return r - l + 1
 }
