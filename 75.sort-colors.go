@@ -36,5 +36,22 @@ func sortColors(nums []int) {
 	}
 }
 
+func sortColorsTwoPointers(nums []int)  {
+    zero, two := 0, len(nums)-1
+    swap := func(a, b int) {
+        nums[a], nums[b] = nums[b], nums[a]
+    }
+    for i := 0; i <= two; i++ {
+        if nums[i] == 0 {
+            swap(zero, i)
+            zero++
+        } else if nums[i] == 2 {
+            swap(two, i)
+            two--
+            i--
+        }
+    }
+}
+
 // @lc code=end
 
