@@ -39,5 +39,51 @@ func findRightInterval(intervals [][]int) []int {
 	return ans
 }
 
+func findRightIntervalHeap(intervals [][]int) []int {
+    maxStartHeap := &MaxHeap{}
+    maxEndHeap := &MaxHeap{}
+    for i, interval := range intervals {
+        heap.Push(maxStartHeap, &ValIndex{interval[0], i})
+        heap.Push(maxEndHeap, &ValIndex{interval[1], i})
+    }
+    res := make([]int, len(intervals))
+    for i := 0; i < len(intervals); i++ {
+        maxEndValIdx := heap.Pop(maxEndHeap).(*ValIndex)
+        res[maxEndValIdx.Idx] = -1
+        if (*maxStartHeap)[0].Val >= maxEndValIdx.Val {
+            maxStartValIndex := heap.Pop(maxStartHeap).(*ValIndex)
+            for maxStartHeap.Len() > 0 && (*maxStartHeap)[0].Val >= maxEndValIdx.Val {
+                maxStartValIndex = heap.Pop(maxStartHeap).(*ValIndex)
+            }
+            res[maxEndValIdx.Idx] = maxStartValIndex.Idx
+            heap.Push(maxStartHeap, maxStartValIndex)
+        }
+    }
+    return res
+}
+
+type ValIndex struct {
+    Val int
+    Idx int
+}
+
+type MaxHeap []*ValIndex
+
+func (mh MaxHeap) Len() int           { return len(mh) }
+func (mh MaxHeap) Less(i, j int) bool { return mh[i].Val > mh[j].Val }
+func (mh MaxHeap) Swap(i, j int)      { mh[i], mh[j] = mh[j], mh[i] }
+
+func (mh *MaxHeap) Pop() interface{} {
+    old := *mh
+    n := len(old)
+    x := old[n-1]
+    *mh = old[:n-1]
+    return x
+}
+
+func (mh *MaxHeap) Push(x interface{}) {
+    *mh = append(*mh, x.(*ValIndex))
+}
+
 // @lc code=end
 
